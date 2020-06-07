@@ -2,157 +2,100 @@ using System;
 using static System.Convert;
 using System.Collections;
 using System.Collections.Generic;
+using studentsLib;
 
-namespace studentsLib
+namespace zadanie8
 {
-    public class Class1
+
+    class Program
     {
-
-        public class Student
-        {
-            public int ids;
-            public string fio;
-            public int group;
-            public string data;
-        }
-        public List<Student> stud = new List<Student>();
-
-        public string funkfio(string ffio)
-        {
-            string realfio = "";
-            for (int i = 0; i < ffio.Length; i++)
+        
+            static void Main(string[] args)
             {
-                if (ffio[i] != ' ')
+            Class1 L = new Class1();
+            int ids = 0;
+                int a,b;
+                do{
+                Console.WriteLine("Введите: \n1. Показать Информацию о студентах. \n2. Добавить студента. \n3. Удалить студента. \n4. Изменить студента. \n5. Поиск студентов. \n6. Выход");
+                    a = ToInt32(Console.ReadLine());
+                    Console.WriteLine("\n");
+                if (a == 1)
                 {
-                    realfio += ffio[i];
+                    Console.WriteLine("Введите: \n1. Вся информация о студентах. \n2. Список студентов с инициалами. \n3. Список студентов старше 18. \n4. Список студентов младше 18.");
+                    b = ToInt32(Console.ReadLine());
+                    Console.WriteLine("\n");
+                    if (b == 1){
+                        L.show2();
+                    }
+                    else if (b == 2){
+                        L.showallFIO();
+                    }
+                    else if (b == 3){
+                        string ss = "a";
+                        L.age18(ss);
+                    }
+                    else if (b == 4){
+                        string ss = "s";
+                        L.age18(ss);
+                    }
                 }
-                else break;
-
-            }
-            return realfio;
-        }
-
-        public string funkinicfio(string finfio)
-        {
-            string realinfio = "";
-            string k1 = "", k2 = "";
-            for (int i = 0; i < finfio.Length; i++)
-            {
-                if (finfio[i] != ' ')
-                {
-                    realinfio += finfio[i];
-                }
-                else
-                {
-                    k1 += finfio[i + 1];
-                    i++;
-                    for (int j = i; j < finfio.Length; j++)
+                    if (a == 2){
+                        Console.WriteLine("\nФ.И.О.: ");
+                        string fio = Console.ReadLine();
+                        Console.WriteLine("Группа: ");
+                        int group = ToInt32(Console.ReadLine());
+                        Console.WriteLine("Дата рождения дд.мм.гггг: ");
+                        string data = Console.ReadLine();
+                        L.addstud(ids, fio, group, data);
+                        ids++;
+                    }
+                    
+                    else if (a == 3){
+                        ids = ToInt32(Console.ReadLine());
+                        L.del(ids);
+                    }
+                    else if (a == 4){
+                        Console.WriteLine("\nID студента: ");
+                        int idsT = ToInt32(Console.ReadLine());
+                        Console.WriteLine("Ф.И.О.: ");
+                        string fio = Console.ReadLine();
+                        Console.WriteLine("Группа: ");
+                        int group = ToInt32(Console.ReadLine());
+                        Console.WriteLine("Дата рождения дд.мм.гггг: ");
+                        string data = Console.ReadLine();
+                        L.izmen(idsT, fio, group, data);
+                    }
+                    else if (a == 5)
                     {
-                        if (finfio[j] == ' ')
+                        Console.WriteLine("Введите: \n1. Вся информация студента по его ID. \n2. Возраст студента по ID. \n3. Поиск студента по фамилии. \n4. Инициалы студента по ID.");
+                        b = ToInt32(Console.ReadLine());
+                        Console.WriteLine("\n");
+                        if (b == 1)
                         {
-
-                            k2 += finfio[j + 1];
-                            break;
+                        Console.WriteLine("Введите ID студента");
+                        int idss = ToInt32(Console.ReadLine());
+                        L.poiskID(idss);
+                        }
+                        if (b == 2)
+                        {
+                        Console.WriteLine("Введите ID студента");
+                        int IDage = ToInt32(Console.ReadLine());
+                        L.age(IDage);
+                        }
+                        if (b == 3)
+                        {
+                        Console.WriteLine("Введите фамилию студента: ");
+                        string sFIO = Console.ReadLine();
+                        L.searchFIO(sFIO);
+                        }
+                        if (b == 4)
+                        {
+                        Console.WriteLine("Введите ID студента: ");
+                        int IDstud = ToInt32(Console.ReadLine());
+                        L.inicfio(IDstud);
                         }
                     }
-                    break;
-                }
+                } while (a != 6);
             }
-            realinfio += " " + k1.ToUpper() + "." + k2.ToUpper() + ".";
-            return realinfio;
-        }
-        public void showallFIO()
-        {
-            foreach (var i in stud)
-            {
-                string allf = funkinicfio(i.fio);
-                Console.WriteLine(allf + "\n");
-            }
-        }
-        public void addstud(int ids, string fio, int group, string data)
-        {
-            stud.Add(new Student() { ids = ids, fio = fio, group = group, data = data });
-        }
-        public void del(int ids)
-        {
-            for (int i = 0; i < stud.Count; i++)
-            {
-                if (stud[i].ids == ids) stud.RemoveAt(i);
-            }
-        }
-        public void izmen(int ids, string fio, int group, string data)
-        {
-            for (int i = 0; i < stud.Count; i++)
-            {
-                if (stud[i].ids == ids)
-                {
-                    stud[i].fio = fio;
-                    stud[i].group = group;
-                    stud[i].data = data;
-                }
-            }
-        }
-        public void show()
-        {
-            foreach (var i in stud)
-            {
-                Console.WriteLine(i.fio + "\n");
-            }
-        }
-        public void show2()
-        {
-            foreach (var i in stud)
-            {
-                Console.WriteLine(i.ids + "\n" + i.fio + "\n" + i.group + "\n" + i.data + "\n");
-            }
-        }
-        public void poiskID(int id)
-        {
-            Console.WriteLine(stud[id].ids + "\n" + stud[id].fio + "\n" + stud[id].group + "\n" + stud[id].data + "\n");
-        }
-        public void age(int idi)
-        {
-            DateTime idage = ToDateTime(stud[idi].data);
-            DateTime now = DateTime.Today;
-            int age = now.Year - idage.Year;
-            if (idage > now.AddYears(-age)) age--;
-            Console.WriteLine(age + " - возраст студента.");
-        }
-        public void age18(string s1)
-        {
-            foreach (var idi18 in stud)
-            {
-                DateTime idage = ToDateTime(idi18.data);
-                DateTime now = DateTime.Today;
-                int age = now.Year - idage.Year;
-                if (idage > now.AddYears(-age)) age--;
-                if (s1 == "a")
-                {
-                    if (age >= 18) Console.WriteLine("\n" + idi18.ids + "\n" + idi18.fio + "\n" + idi18.group + "\n" + idi18.data + "\n");
-                }
-                else if (s1 == "s")
-                {
-                    if (age < 18) Console.WriteLine("\n" + idi18.ids + "\n" + idi18.fio + "\n" + idi18.group + "\n" + idi18.data + "\n");
-                }
-            }
-
-        }
-
-        public void searchFIO(string sFIO)
-        {
-            string tfio = "";
-            foreach (var i in stud)
-            {
-                tfio = funkfio(i.fio);
-                if (tfio == sFIO)
-                {
-                    Console.WriteLine("\n" + i.ids + "\n" + i.fio + "\n" + i.group + "\n" + i.data + "\n");
-                }
-            }
-        }
-        public void inicfio(int IDstud)
-        {
-            Console.WriteLine("\n" + funkinicfio(stud[IDstud].fio));
-        }
-    }
+    } 
 }

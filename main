@@ -1,4 +1,4 @@
-using System;
+uusing System;
 using static System.Convert;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +46,7 @@ namespace zadanie8
                         int group = ToInt32(Console.ReadLine());
                         Console.WriteLine("Дата рождения дд.мм.гггг: ");
                         string data = Console.ReadLine();
-                        L.addstud(ids, fio, group, data);
+                        L.adds(ids, fio, group, data);
                         ids++;
                     }
                     
@@ -91,8 +91,8 @@ namespace zadanie8
                         if (b == 4)
                         {
                         Console.WriteLine("Введите ID студента: ");
-                        int IDstud = ToInt32(Console.ReadLine());
-                        L.inicfio(IDstud);
+                        int IDs = ToInt32(Console.ReadLine());
+                        L.inicfio(IDs);
                         }
                     }
                 } while (a != 6);

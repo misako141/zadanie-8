@@ -15,104 +15,101 @@ namespace studentsLib
             public int group;
             public string data;
         }
-        public List<Student> stud = new List<Student>();
+        public List<Student> s = new List<Student>();
 
-        public string funkfio(string ffio)
+        public string ff(string ffio)
         {
-            string realfio = "";
+            string rf = "";
             for (int i = 0; i < ffio.Length; i++)
             {
                 if (ffio[i] != ' ')
                 {
-                    realfio += ffio[i];
+                    rf += ffio[i];
                 }
                 else break;
 
             }
-            return realfio;
+            return rf;
         }
 
         public string funkinicfio(string finfio)
         {
-            string realinfio = "";
+            string rf = "";
             string k1 = "", k2 = "";
-            for (int i = 0; i < finfio.Length; i++)
+            for (int i = 0; i < ff.Length; i++)
             {
-                if (finfio[i] != ' ')
+                if (ff[i] != ' ')
                 {
-                    realinfio += finfio[i];
+                    rf += ff[i];
                 }
                 else
                 {
-                    k1 += finfio[i + 1];
+                    k1 += ff[i + 1];
                     i++;
-                    for (int j = i; j < finfio.Length; j++)
+                    for (int j = i; j < ff.Length; j++)
                     {
-                        if (finfio[j] == ' ')
+                        if (ff[j] == ' ')
                         {
 
-                            k2 += finfio[j + 1];
+                            k2 += ff[j + 1];
                             break;
                         }
                     }
                     break;
                 }
             }
-            realinfio += " " + k1.ToUpper() + "." + k2.ToUpper() + ".";
-            return realinfio;
+           rf += " " + k1.ToUpper() + "." + k2.ToUpper() + ".";
+            return rf;
         }
         public void showallFIO()
         {
-            foreach (var i in stud)
+            foreach (var i in s)
             {
                 string allf = funkinicfio(i.fio);
                 Console.WriteLine(allf + "\n");
             }
         }
-        public void addstud(int ids, string fio, int group, string data)
+        public void adds(int ids, string fio, int group, string data)
         {
-            stud.Add(new Student() { ids = ids, fio = fio, group = group, data = data });
+            s.Add(new Student() { ids = ids, fio = fio, group = group, data = data });
         }
         public void del(int ids)
         {
-            for (int i = 0; i < stud.Count; i++)
+            for (int i = 0; i < s.Count; i++)
             {
-                if (stud[i].ids == ids) stud.RemoveAt(i);
+                if (s[i].ids == ids) s.RemoveAt(i);
             }
         }
         public void izmen(int ids, string fio, int group, string data)
         {
-            for (int i = 0; i < stud.Count; i++)
+            for (int i = 0; i < s.Count; i++)
             {
-                if (stud[i].ids == ids)
+                if (s[i].ids == ids)
                 {
-                    stud[i].fio = fio;
-                    stud[i].group = group;
-                    stud[i].data = data;
+                    s[i].fio = fio;
+                    s[i].group = group;
+                    s[i].data = data;
                 }
             }
         }
         public void show()
         {
-            foreach (var i in stud)
+            foreach (var i in s)
             {
                 Console.WriteLine(i.fio + "\n");
             }
         }
         public void show2()
         {
-            foreach (var i in stud)
+            foreach (var i in s)
             {
                 Console.WriteLine(i.ids + "\n" + i.fio + "\n" + i.group + "\n" + i.data + "\n");
             }
         }
-        public void poiskID(int id)
-        {
-            Console.WriteLine(stud[id].ids + "\n" + stud[id].fio + "\n" + stud[id].group + "\n" + stud[id].data + "\n");
-        }
+       
         public void age(int idi)
         {
-            DateTime idage = ToDateTime(stud[idi].data);
+            DateTime idage = ToDateTime(s[idi].data);
             DateTime now = DateTime.Today;
             int age = now.Year - idage.Year;
             if (idage > now.AddYears(-age)) age--;
@@ -120,7 +117,7 @@ namespace studentsLib
         }
         public void age18(string s1)
         {
-            foreach (var idi18 in stud)
+            foreach (var idi18 in s)
             {
                 DateTime idage = ToDateTime(idi18.data);
                 DateTime now = DateTime.Today;
@@ -137,22 +134,25 @@ namespace studentsLib
             }
 
         }
-
+        public void poiskID(int id)
+        {
+            Console.WriteLine(s[id].ids + "\n" + s[id].fio + "\n" + s[id].group + "\n" + s[id].data + "\n");
+        }
         public void searchFIO(string sFIO)
         {
             string tfio = "";
-            foreach (var i in stud)
+            foreach (var i in s)
             {
-                tfio = funkfio(i.fio);
+                tfio = ff(i.fio);
                 if (tfio == sFIO)
                 {
                     Console.WriteLine("\n" + i.ids + "\n" + i.fio + "\n" + i.group + "\n" + i.data + "\n");
                 }
             }
         }
-        public void inicfio(int IDstud)
+        public void inicfio(int IDs)
         {
-            Console.WriteLine("\n" + funkinicfio(stud[IDstud].fio));
+            Console.WriteLine("\n" + funkinicfio(s[IDs].fio));
         }
     }
 }
